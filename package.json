@@ -16,6 +16,7 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.5.6",
         "@vitejs/plugin-vue": "^4.4.0",
+        "pinia": "^2.1.7",
         "vue": "^3.2.36"
     }
 }
