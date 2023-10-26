@@ -14,9 +14,9 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        Article::factory(1000)->create();
+        $articles = Article::factory(1000)->create();
 
-        Article::all()->each(function ($article)  {
+        $articles->each(function ($article)  {
             $article->tags()->saveMany(
                 Tag::inRandomOrder()
                     ->limit(random_int(1, 5))

@@ -5,8 +5,7 @@ export const useArticleStore = defineStore({
 
     state: () => ({
         articles: [],
-        links: {},
-        meta: {},
+        links: [],
         isLoading: false,
         error: null,
     }),
@@ -15,52 +14,31 @@ export const useArticleStore = defineStore({
         allArticles() {
             return this.articles;
         },
-        allMeta() {
-            return this.meta;
-        },
-        allLinks() {
+        allPageLinks() {
             return this.links;
-        },
+        }
     },
 
     actions: {
-        async fetchAllArticles(url) {
+        async fetchAllArticles(url, searchTerm) {
             this.isLoading = true;
             this.error = null;
+            let endPoint = url == null ? '/api/article' : url
+
+            if (searchTerm ) {
+                endPoint = `/api/article?query=${searchTerm}`
+            }
 
             try {
-                let response
-                if (url !== null) {
-                    response = await axios.get(url)
-                } else {
-                    response = await axios.get("/api/article")
-                }
+                const response = await axios.get(endPoint)
 
                 this.articles = response.data.data;
                 this.links = response.data.links;
-                this.meta = response.data.meta;
             } catch (error) {
                 this.error = error.message;
             } finally {
                 this.isLoading = false;
             }
-        },
-
-        async searchForArticles(searchTerm) {
-            this.isLoading = true;
-            this.error = null;
-
-            try {
-                const response = await axios.get(`/api/article/search?query=${searchTerm}`)
-
-                this.articles = response.data.data;
-                this.links = response.data.links;
-                this.meta = response.data.meta;
-            } catch (error) {
-                this.error = error.message;
-            } finally {
-                this.isLoading = false;
-            }
-        },
+        }
     },
 });

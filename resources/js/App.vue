@@ -13,6 +13,6 @@ import { useArticleStore } from './Store/article';
 const articleStore = useArticleStore();
 
 onMounted(() => {
-    articleStore.fetchAllArticles(null);
+    articleStore.fetchAllArticles(null, null);
 })
 </script>

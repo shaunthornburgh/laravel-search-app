@@ -5,7 +5,7 @@
         <div class="flex flex-col gap-8">
             <Article v-for="article in articleStore.allArticles" :key="article.id" :article="article"  />
         </div>
-        <div v-if="articleStore.allMeta" class="w-full border-t border-gray-200 mt-8">
+        <div v-if="articleStore.allPageLinks" class="w-full border-t border-gray-200 mt-8">
             <Pagination
             />
         </div>
